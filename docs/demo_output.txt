@@ -1,0 +1,45 @@
+
+================================================================
+FEATURE 1  —  ROUND-UP SAVES  (Gen Z)
+================================================================
+Riya has Rs 5,000 free. She buys a coffee for Rs 247.
+  Before:  balance Rs 5000.00 | Laptop Fund Rs 0.00
+----------------------------------------------------------------
+  She spends Rs 247  ->  rounds up to Rs 250
+  Spare change saved automatically:  Rs 3
+  After:   balance Rs 4997.00 | Laptop Fund Rs 3.00
+  >> The Rs 3 moved through the SAME ledger as every other transaction.
+
+================================================================
+FEATURE 2  —  SPLIT-A-POT WITH FRIENDS  (Gen Z)
+================================================================
+Riya, Aman and Kai save together for a Goa trip in one shared pot.
+  Shared pot balance:  Rs 5000.00
+----------------------------------------------------------------
+  Who put what (straight from the ledger, provable to the rupee):
+    User 1  ->  Rs 2000.00
+    User 2  ->  Rs 2000.00
+    User 3  ->  Rs 1000.00
+  >> Nobody can pull out more than they put in. The ledger is the truth.
+
+================================================================
+FEATURE 3  —  'CAN I AFFORD THIS?'  (AI)
+================================================================
+Riya wants Rs 12,000 headphones. She asks AIPA before buying.
+  Her free balance: Rs 2997.00 | Goal: Laptop Fund
+----------------------------------------------------------------
+  You ask:   Can I afford Rs 12000?
+  AIPA says: Not right now — that's Rs 12000 but you only have Rs 2997.00 free. Want me to suggest a smaller option?
+  Money moved by AIPA:  False  (it only advises — you decide)
+
+================================================================
+PROOF  —  THE BOOKS STILL BALANCE
+================================================================
+  Money in balances: Rs 9997.00
+  Money in pots:     Rs 5003.00
+  Total in system:   Rs 15000.00
+  Total seeded in:   Rs 15000
+  >> Every rupee accounted for. Nothing created, nothing lost.
+
+DEMO COMPLETE — all three features ran on the real ledger.
+
