@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IB Dream — Milestone Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/dream.css" />
+</head>
+<body>
+  <div class="aurora" aria-hidden="true">
+    <span class="blob blob--blue"></span>
+    <span class="blob blob--purple"></span>
+    <span class="blob blob--cyan"></span>
+  </div>
+
+  <main class="shell">
+    <header class="masthead">
+      <div class="brand">
+        <span class="brand__mark">IB</span>
+        <span class="brand__sep"></span>
+        <span class="brand__name">Dream</span>
+      </div>
+      <h1 class="title">Milestone Engine</h1>
+      <p class="subtitle">Watch a goal become real, one milestone at a time.</p>
+    </header>
+
+    <!-- INPUT PANEL -->
+    <section class="panel glass" aria-label="Dream inputs">
+      <div class="field-grid">
+        <label class="field">
+          <span class="field__label">Dream name</span>
+          <input id="dream_name" class="field__input" type="text" value="Porsche 911" autocomplete="off" />
+        </label>
+        <label class="field">
+          <span class="field__label">Target amount <span class="field__unit">₹</span></span>
+          <input id="target_amount" class="field__input" type="number" value="30000000" min="1" />
+        </label>
+        <label class="field">
+          <span class="field__label">Current saved <span class="field__unit">₹</span></span>
+          <input id="current_saved_amount" class="field__input" type="number" value="12600000" min="0" />
+        </label>
+        <label class="field">
+          <span class="field__label">Monthly contribution <span class="field__unit">₹</span></span>
+          <input id="monthly_contribution" class="field__input" type="number" value="1000" min="0" />
+        </label>
+      </div>
+      <label class="field">
+  <span class="field__label">
+      Deposit Amount <span class="field__unit">₹</span>
+  </span>
+
+  <input
+      id="deposit_amount"
+      class="field__input"
+      type="number"
+      value="1000"
+      min="1"
+  />
+</label>
+
+<button
+    id="depositBtn"
+    class="cta cta--secondary"
+    type="button"
+>
+    💰 Deposit Money
+</button>
+      <button id="calcBtn" class="cta" type="button">
+        <span class="cta__icon">✨</span>
+        <span class="cta__label">Calculate Dream</span>
+        <span class="cta__spinner" aria-hidden="true"></span>
+      </button>
+      <p id="errorMsg" class="error" role="alert" hidden></p>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="results" hidden aria-live="polite">
+      <div class="dream-head">
+        <h2 id="dreamTitle" class="dream-title"></h2>
+        <span id="becomingReal" class="becoming" hidden>🎉 Dream becoming real…</span>
+      </div>
+
+      <!-- stat cards -->
+      <div class="cards" id="cards"></div>
+
+      <!-- progress bars -->
+      <div class="bars glass">
+        <div class="bar-row">
+          <div class="bar-meta"><span>Progress</span><span id="progressVal" class="bar-val">0%</span></div>
+          <div class="track"><div id="progressFill" class="fill fill--progress"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-meta"><span>Dream visibility</span><span id="visibleVal" class="bar-val">0%</span></div>
+          <div class="track"><div id="visibleFill" class="fill fill--visible"></div></div>
+        </div>
+      </div>
+
+      <!-- milestone ladder (signature element) -->
+      <div class="ladder glass">
+        <div class="ladder__head">
+          <span class="ladder__title">Milestones</span>
+          <span id="ladderCount" class="ladder__count"></span>
+        </div>
+        <div id="milestones" class="milestones"></div>
+        <div class="ladder__legend">
+          <span class="legend"><span class="dot dot--on"></span> Unlocked</span>
+          <span class="legend"><span class="dot dot--off"></span> Locked</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footnote">Calculations served by the IB Dream backend · deterministic, not AI</footer>
+  </main>
+
+  <script src="/static/js/dream.js" defer></script>
+</body>
+</html>
