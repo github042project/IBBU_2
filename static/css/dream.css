@@ -149,3 +149,122 @@ body{
 .cta:disabled{cursor:not-allowed}
 .field__input:read-only{opacity:.6;cursor:not-allowed;border-color:var(--glass-brd);background:rgba(255,255,255,.025)}
 .field__input:read-only:focus{box-shadow:none;border-color:var(--glass-brd);background:rgba(255,255,255,.025)}
+
+/* =========================================================
+   DREAM PREVIEW (DAY 3)
+   ========================================================= */
+
+.preview{
+    margin-bottom:18px;
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    overflow:hidden;
+    position:relative;
+}
+
+.preview__stage{
+    position:relative;
+    width:100%;
+    min-height:170px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.preview__art{
+    font-size:7rem;
+    line-height:1;
+    transition:
+        opacity .8s ease,
+        filter .8s ease,
+        transform .8s ease;
+    transform:scale(.92);
+    position:relative;
+    z-index:2;
+}
+
+.preview__glow{
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(47,226,160,.35),
+        rgba(47,226,160,.08),
+        transparent 72%
+    );
+    opacity:0;
+    transition:opacity .8s ease;
+    z-index:1;
+}
+
+.preview__meta{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    text-align:center;
+}
+
+.preview__label{
+    font-size:.82rem;
+    color:var(--ink-soft);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+}
+
+.preview__pct{
+    font-family:"Sora",sans-serif;
+    font-size:2rem;
+    font-weight:700;
+    background:linear-gradient(
+        90deg,
+        var(--cyan),
+        var(--purple)
+    );
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.preview__hint{
+    color:var(--ink-soft);
+    font-size:.9rem;
+}
+
+/* becomes real */
+
+.preview.real .preview__art{
+    transform:scale(1);
+}
+
+.preview.real .preview__glow{
+    opacity:1;
+}
+
+/* mobile */
+
+@media(max-width:680px){
+
+    .preview{
+        padding:18px;
+    }
+
+    .preview__stage{
+        min-height:130px;
+    }
+
+    .preview__art{
+        font-size:5rem;
+    }
+
+    .preview__glow{
+        width:170px;
+        height:170px;
+    }
+}
