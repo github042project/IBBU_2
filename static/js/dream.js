@@ -101,6 +101,7 @@
 
   const render = (d) => {
     $("dreamTitle").textContent = `${dreamEmoji(d.dream)}  ${d.dream}`;
+    updatePreview(d);
 
     // "becoming real" cue when visibility rises vs the previous run
     const becoming = $("becomingReal");
@@ -220,3 +221,54 @@ $("deposit_amount").value = "";
   // calculate once on load so the founder sees a populated screen immediately
   window.addEventListener("DOMContentLoaded", calculate);
 })();
+
+function updatePreview(d){
+  console.log("==========");
+  console.log("Preview function called");
+  console.log(d);
+  console.log(document.getElementById("dreamArt"));
+  console.log(document.querySelector(".preview"));
+
+    const art = document.getElementById("dreamArt");
+    const pct = document.getElementById("previewPct");
+    const hint = document.getElementById("previewHint");
+    const card = document.querySelector(".preview");
+
+    if(!art) return;
+
+    const name = (d.dream || "").toLowerCase();
+
+    let icon = "🌟";
+
+    if(name.includes("car") || name.includes("porsche"))
+        icon = "🚗";
+    else if(name.includes("bike") || name.includes("activa"))
+        icon = "🛵";
+    else if(name.includes("house") || name.includes("home"))
+        icon = "🏡";
+    else if(name.includes("travel"))
+        icon = "✈️";
+    else if(name.includes("laptop"))
+        icon = "💻";
+
+    art.textContent = icon;
+
+    const v = Number(d.visible_pct || 0);
+
+    pct.textContent = v.toFixed(1) + "%";
+
+    const opacity = 0.12 + (v/100)*0.88;
+
+    const blur = 9 - (v/100)*9;
+
+    art.style.opacity = opacity;
+    art.style.filter = `blur(${blur}px)`;
+
+    if(v >= 60){
+        card.classList.add("real");
+        hint.textContent = "Dream becoming real ✨";
+    }else{
+        card.classList.remove("real");
+        hint.textContent = "Save more to bring it into focus";
+    }
+}
