@@ -12,8 +12,9 @@ pass a lightweight in-memory `_DreamLike` dataclass. No SQLAlchemy, no persisten
 When the real Dream model lands, it satisfies the same protocol and the service
 and router need no change.
 """
-
 from __future__ import annotations
+from services.pace_service import build_pace
+from services.pace_service import build_nudge
 
 from dataclasses import dataclass
 from decimal import Decimal
@@ -119,19 +120,37 @@ class PaceResponse(BaseModel):
     months_to_next_unlock: Optional[int]
     months_to_full_dream: Optional[int]
     note: str
+class AIPAPaceResponse(BaseModel):
+    pace: str
+    months_next: Optional[int]
+    months_full: Optional[int]
 
 
 class DemoResponse(BaseModel):
+
     dream: str
+
     steps: int
+
     milestone_amount: str
+
     progress_pct: float
+
     visible_pct: float
+
     current_step: int
+
     next_step: Optional[int]
+
     gap_to_next: str
+
     months_to_next_unlock: Optional[int]
+
     months_to_full_dream: Optional[int]
+
+    pace: AIPAPaceResponse
+
+    nudge: str
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -223,6 +242,9 @@ class DreamDepositResponse(BaseModel):
     state: DreamStateResponse
     pace: PaceResponse
 
+    aipa_pace: dict
+    nudge: str
+
 
 @router.post(
     "/demo",
@@ -237,6 +259,16 @@ def post_demo(body: DreamInput):
     dream = body.to_dreamlike()
     state = dream_state(dream)
     pace_info = pace(dream)
+
+    aipa_pace = build_pace(
+        pace_info["months_to_next_unlock"],
+        pace_info["months_to_full_dream"],
+    )
+
+    aipa_nudge = build_nudge(
+        pace_info["months_to_next_unlock"]
+    )
+
     return DemoResponse(
         dream=state["dream"],
         steps=state["steps"],
@@ -248,7 +280,10 @@ def post_demo(body: DreamInput):
         gap_to_next=state["gap_to_next"],
         months_to_next_unlock=pace_info["months_to_next_unlock"],
         months_to_full_dream=pace_info["months_to_full_dream"],
+        pace=aipa_pace,
+        nudge=aipa_nudge,
     )
+
 @router.post(
     "/deposit",
     response_model=DreamDepositResponse,
@@ -259,6 +294,7 @@ def post_demo(body: DreamInput):
     ),
 )
 def deposit_into_dream(body: DreamDepositRequest):
+
     try:
         result = deposit(
             dream_name=body.dream_name,
@@ -268,11 +304,22 @@ def deposit_into_dream(body: DreamDepositRequest):
             deposit_amount=body.deposit_amount,
         )
 
+        aipa_pace = build_pace(
+            result["pace"]["months_to_next_unlock"],
+            result["pace"]["months_to_full_dream"],
+        )
+
+        aipa_nudge = build_nudge(
+            result["pace"]["months_to_next_unlock"]
+        )
+
         return DreamDepositResponse(
             deposit=result["deposit"],
             current_saved=result["current_saved"],
             state=DreamStateResponse(**result["state"]),
             pace=PaceResponse(**result["pace"]),
+            aipa_pace=aipa_pace,
+            nudge=aipa_nudge,
         )
 
     except DreamDepositError as exc:
