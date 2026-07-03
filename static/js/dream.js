@@ -102,6 +102,31 @@
   const render = (d) => {
     $("dreamTitle").textContent = `${dreamEmoji(d.dream)}  ${d.dream}`;
     updatePreview(d);
+    const paceText = document.getElementById("paceText");
+const nextEta = document.getElementById("nextEta");
+const fullEta = document.getElementById("fullEta");
+const nudgeBox = document.getElementById("nudgeBox");
+
+if (d.pace) {
+    paceText.textContent = d.pace.pace;
+
+    nextEta.textContent =
+        d.pace.months_next != null
+            ? `${d.pace.months_next} months`
+            : "—";
+
+    fullEta.textContent =
+        d.pace.months_full != null
+            ? `${d.pace.months_full} months`
+            : "—";
+} else {
+    paceText.textContent = "—";
+    nextEta.textContent = "—";
+    fullEta.textContent = "—";
+}
+
+nudgeBox.textContent =
+    d.nudge || "Keep saving consistently!";
 
     // "becoming real" cue when visibility rises vs the previous run
     const becoming = $("becomingReal");
@@ -188,11 +213,15 @@
 
         render({
 
-            ...data.state,
+    ...data.state,
 
-            ...data.pace,
+    ...data.pace,
 
-        });
+    pace: data.aipa_pace,
+
+    nudge: data.nudge,
+
+});
 
         const updatedSaved = Number(data.current_saved);
 
